@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tour &amp; Fun — Adventures That Hit Different</title>
+<meta name="description" content="Tour & Fun — curated group tours, city escapes, and adventure trips. Book your next unforgettable trip today." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0a0d;
+    --bg2:#111116;
+    --card:#14141b;
+    --line:#26262e;
+    --accent:#ff5c1a;
+    --accent2:#ffb220;
+    --text:#f4f2ee;
+    --muted:#9b9aa4;
+    --radius:20px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  .display{font-family:'Archivo Black',Impact,sans-serif;font-weight:400;line-height:.95;letter-spacing:-.02em}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  section{padding:96px 0}
+  .accent{color:var(--accent)}
+  .grad{background:linear-gradient(100deg,var(--accent) 0%,var(--accent2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(10,10,13,.72);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{font-family:'Archivo Black',sans-serif;font-size:22px;letter-spacing:-.02em;color:var(--text);text-decoration:none}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:600;transition:color .2s}
+  .nav-links a:hover{color:var(--text)}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(100deg,var(--accent),var(--accent2));
+    color:#0a0a0d;font-weight:700;font-size:15px;
+    padding:14px 28px;border-radius:999px;text-decoration:none;
+    border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;
+    box-shadow:0 8px 30px rgba(255,92,26,.35);
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(255,92,26,.5)}
+  .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}
+  .btn.ghost:hover{border-color:var(--accent)}
+  .burger{display:none;background:none;border:none;color:var(--text);font-size:26px;cursor:pointer}
+
+  /* HERO */
+  header{
+    min-height:100vh;display:flex;align-items:center;position:relative;
+    padding:120px 0 80px;
+    background:
+      radial-gradient(700px 500px at 85% 15%,rgba(255,92,26,.16),transparent 60%),
+      radial-gradient(600px 400px at 8% 85%,rgba(255,178,32,.08),transparent 60%),
+      var(--bg);
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);border-radius:999px;
+    padding:8px 18px;font-size:13px;color:var(--muted);
+    background:rgba(255,255,255,.03);margin-bottom:28px;
+  }
+  .hero-badge b{color:var(--accent2)}
+  h1{font-size:clamp(48px,8.5vw,104px)}
+  .hero p.lead{max-width:560px;color:var(--muted);font-size:18px;margin:28px 0 40px}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+  .hero-stats{
+    display:flex;gap:48px;margin-top:64px;padding-top:36px;
+    border-top:1px solid var(--line);flex-wrap:wrap;
+  }
+  .hero-stats .num{font-family:'Archivo Black',sans-serif;font-size:34px}
+  .hero-stats .lbl{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+
+  /* MARQUEE */
+  .marquee{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:linear-gradient(100deg,var(--accent),var(--accent2));
+    overflow:hidden;padding:14px 0;transform:rotate(-1.2deg) scale(1.02);
+  }
+  .marquee-track{display:flex;gap:48px;white-space:nowrap;animation:scroll 22s linear infinite;width:max-content}
+  .marquee span{font-family:'Archivo Black',sans-serif;font-size:16px;color:#0a0a0d;text-transform:uppercase;letter-spacing:.06em}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* SECTION HEADS */
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:56px;flex-wrap:wrap}
+  .kicker{color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:14px}
+  h2.display{font-size:clamp(34px,5vw,58px)}
+
+  /* TOUR CARDS */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .tour{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:transform .25s,border-color .25s;position:relative;
+  }
+  .tour:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .tour-img{
+    height:200px;display:flex;align-items:center;justify-content:center;
+    font-size:64px;position:relative;overflow:hidden;
+  }
+  .tour-img::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(10,10,13,.85),transparent 60%);
+  }
+  .i1{background:linear-gradient(135deg,#1b2a4a,#0d1526)}
+  .i2{background:linear-gradient(135deg,#3a1b0f,#1c0d06)}
+  .i3{background:linear-gradient(135deg,#123b2e,#0a1c16)}
+  .tag{
+    position:absolute;top:16px;left:16px;z-index:2;
+    background:#0a0a0dcc;color:var(--accent2);
+    border:1px solid var(--line);border-radius:999px;
+    font-size:12px;font-weight:700;padding:6px 14px;letter-spacing:.06em;
+  }
+  .tour-body{padding:24px}
+  .tour h3{font-size:22px;font-weight:800;margin-bottom:8px}
+  .tour p{color:var(--muted);font-size:14.5px;margin-bottom:20px}
+  .tour-meta{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:18px}
+  .price{font-family:'Archivo Black',sans-serif;font-size:20px;color:var(--accent2)}
+  .price small{font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);font-weight:500}
+  .days{font-size:13px;color:var(--muted)}
+  .tlink{color:var(--text);font-size:13.5px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--accent);padding-bottom:2px}
+  .tour-list{margin-top:48px;text-align:center}
+
+  /* WHY US */
+  #why{background:var(--bg2)}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  .feat{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px;transition:border-color .25s,transform .25s;
+  }
+  .feat:hover{border-color:var(--accent);transform:translateY(-4px)}
+  .feat .ico{font-size:34px;margin-bottom:16px;display:block}
+  .feat h3{font-size:17px;margin-bottom:8px}
+  .feat p{font-size:14px;color:var(--muted)}
+
+  /* TESTIMONIALS */
+  .grid3.t{margin-top:0}
+  .quote{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:32px}
+  .stars{color:var(--accent2);letter-spacing:3px;margin-bottom:16px}
+  .quote p{font-size:15px;color:#d8d6df;margin-bottom:24px;font-style:italic}
+  .who{display:flex;align-items:center;gap:14px}
+  .avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0}
+  .a1{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+  .a2{background:linear-gradient(135deg,#4a5cff,var(--accent))}
+  .a3{background:linear-gradient(135deg,#00c99a,var(--accent2))}
+  .who b{display:block;font-size:14px}
+  .who span{font-size:12.5px;color:var(--muted)}
+
+  /* CTA / BOOKING */
+  .cta-box{
+    background:
+      radial-gradient(500px 300px at 20% 20%,rgba(255,92,26,.25),transparent 60%),
+      radial-gradient(500px 300px at 85% 80%,rgba(255,178,32,.14),transparent 60%),
+      var(--card);
+    border:1px solid var(--line);border-radius:28px;
+    padding:64px;text-align:center;
+  }
+  .cta-box h2{font-size:clamp(32px,5vw,56px);margin-bottom:16px}
+  .cta-box p{color:var(--muted);max-width:520px;margin:0 auto 36px}
+  form{display:flex;gap:12px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+  input,select{
+    flex:1;min-width:180px;background:var(--bg);border:1px solid var(--line);
+    color:var(--text);border-radius:999px;padding:15px 22px;font-size:15px;
+    font-family:inherit;outline:none;transition:border-color .2s;
+  }
+  input:focus,select:focus{border-color:var(--accent)}
+  .form-note{margin-top:20px;font-size:13px;color:var(--muted)}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .contact-item{display:flex;gap:16px;margin-bottom:24px;align-items:flex-start}
+  .contact-item .ico{font-size:24px;flex-shrink:0}
+  .contact-item b{display:block;margin-bottom:4px}
+  .contact-item span,.contact-item a{color:var(--muted);font-size:14.5px;text-decoration:none}
+  .contact-item a:hover{color:var(--accent)}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:48px 0;background:#08080b}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .foot p{color:var(--muted);font-size:13.5px}
+  .foot-links{display:flex;gap:24px}
+  .foot-links a{color:var(--muted);font-size:13.5px;text-decoration:none}
+  .foot-links a:hover{color:var(--text)}
+
+  /* REVEAL ANIMATION */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.show{opacity:1;transform:none}
+
+  @media(max-width:960px){
+    .grid3,.grid4{grid-template-columns:1fr 1fr}
+    .contact-grid{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .burger{display:block}
+  }
+  @media(max-width:600px){
+    .grid3,.grid4{grid-template-columns:1fr}
+    .hero-stats{gap:28px}
+    .cta-box{padding:40px 24px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top">TOUR<span>&amp;</span>FUN</a>
+    <div class="nav-links">
+      <a href="#tours">Tours</a>
+      <a href="#why">Why Us</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+      <a href="#book" class="btn" style="padding:11px 24px;font-size:14px">Book a Trip</a>
+    </div>
+    <button class="burger" onclick="document.getElementById('tours').scrollIntoView()">☰</button>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="hero-badge">★ <span><b>4.9</b>/5 from 2,000+ happy travelers</span></div>
+    <h1 class="display">YOUR NEXT<br><span class="grad">BIG ADVENTURE</span><br>STARTS HERE.</h1>
+    <p class="lead">Tour &amp; Fun crafts unforgettable group tours, city escapes, and wild weekend getaways — all you do is pack a bag. We handle the rest.</p>
+    <div class="hero-cta">
+      <a href="#tours" class="btn">Explore Tours →</a>
+      <a href="#book" class="btn ghost">Plan My Trip</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="num grad">120+</div><div class="lbl">Destinations</div></div>
+      <div><div class="num grad">15K</div><div class="lbl">Travelers Served</div></div>
+      <div><div class="num grad">8</div><div class="lbl">Years Running</div></div>
+      <div><div class="num grad">4.9★</div><div class="lbl">Avg. Rating</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>MOUNTAIN TREKS</span><span>•</span><span>ISLAND CRUISES</span><span>•</span><span>CITY HUNTS</span><span>•</span><span>CAMPFIRE NIGHTS</span><span>•</span><span>SUNSET SAFARIS</span><span>•</span>
+    <span>MOUNTAIN TREKS</span><span>•</span><span>ISLAND CRUISES</span><span>•</span><span>CITY HUNTS</span><span>•</span><span>CAMPFIRE NIGHTS</span><span>•</span><span>SUNSET SAFARIS</span><span>•</span>
+  </div>
+</div>
+
+<section id="tours">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Featured Tours</span>
+        <h2 class="display">TRIPS WORTH<br>BLOWING UP<br>YOUR FEED.</h2>
+      </div>
+      <a href="#book" class="btn ghost">See all 120+ tours</a>
+    </div>
+    <div class="grid3">
+      <article class="tour reveal">
+        <div class="tour-img i1"><span class="tag">BESTSELLER</span>🏔️</div>
+        <div class="tour-body">
+          <h3>Alpine Escape</h3>
+          <p>Snow peaks, cable cars, hot cocoa, and a legendary mountain lodge weekend you'll talk about forever.</p>
+          <div class="tour-meta">
+            <span class="days">5 days · All gear included</span>
+            <span class="price">$649<small> /person</small></span>
+          </div>
+        </div>
+      </article>
+      <article class="tour reveal">
+        <div class="tour-img i2"><span class="tag">NEW</span>🏝️</div>
+        <div class="tour-body">
+          <h3>Island Hopper</h3>
+          <p>Six islands, one boat, endless sunsets. Snorkeling by day, beach barbecues by night.</p>
+          <div class="tour-meta">
+            <span class="days">7 days · Meals included</span>
+            <span class="price">$899<small> /person</small></span>
+          </div>
+        </div>
+      </article>
+      <article class="tour reveal">
+        <div class="tour-img i3"><span class="tag">WEEKEND</span>🌿</div>
+        <div class="tour-body">
+          <h3>Wild Jungle Trek</h3>
+          <p>Waterfalls, canopy walks, and a campfire feast under the stars — the two-day reset you need.</p>
+          <div class="tour-meta">
+            <span class="days">2 days · Small groups</span>
+            <span class="price">$249<small> /person</small></span>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="tour-list reveal">
+      <a href="#book" class="tlink">Want something custom? Build your own trip →</a>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Why Tour &amp; Fun</span>
+        <h2 class="display">MOST TOURS<br>BOOK TRIPS.<br><span class="grad">WE BOOK MEMORIES.</span></h2>
+      </div>
+    </div>
+    <div class="grid4">
+      <div class="feat reveal"><span class="ico">🧭</span><h3>Expert Local Guides</h3><p>Handpicked guides who know every secret spot, shortcut, and story worth telling.</p></div>
+      <div class="feat reveal"><span class="ico">🎒</span><h3>Zero-Plan Packing</h3><p>Hotels, meals, tickets, and transfers included. Show up, and we take care of everything else.</p></div>
+      <div class="feat reveal"><span class="ico">💸</span><h3>Honest Pricing</h3><p>One flat price, no surprise fees, free cancellation up to 7 days before departure.</p></div>
+      <div class="feat reveal"><span class="ico">👥</span><h3>Vibes Guaranteed</h3><p>Small groups of fun, like-minded travelers. Solo? Come anyway — 60% of our guests are.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <span class="kicker">Traveler Love</span>
+        <h2 class="display">THEY CAME FOR<br>A TRIP. THEY LEFT<br>WITH STORY OF A LIFETIME.</h2>
+      </div>
+    </div>
+    <div class="grid3 t">
+      <div class="quote reveal">
+        <div class="stars">★★★★★</div>
+        <p>"I've booked tours all over the world, and nothing has come close to Tour &amp; Fun's Island Hopper. Every day just kept topping the last."</p>
+        <div class="who"><div class="avatar a1"></div><div><b>Jéssica Ramos</b><span>Went on Island Hopper</span></div></div>
+      </div>
+      <div class="quote reveal">
+        <div class="stars">★★★★★</div>
+        <p>"As a solo traveler I was nervous, but the group clicked instantly. Our guide Marco felt like a friend after hour one."</p>
+        <div class="who"><div class="avatar a2"></div><div><b>Dev Sharma</b><span>Went on Alpine Escape</span></div></div>
+      </div>
+      <div class="quote reveal">
+        <div class="stars">★★★★★</div>
+        <p>"Booked the jungle trek for my team offsite. Flawless logistics, insane food, and a bonfire night no one stopped talking about."</p>
+        <div class="who"><div class="avatar a3"></div><div><b>Amara Okafor</b><span>Went on Jungle Trek</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <h2 class="display">READY? <span class="grad">LET'S GO.</span></h2>
+      <p>Drop your email and we'll send our full tour catalog plus early-bird deals worth up to 30% off.</p>
+      <form onsubmit="return bookTrip(event)">
+        <input type="email" placeholder="Your email address" required id="email" />
+        <select id="trip">
+          <option>Alpine Escape — from $649</option>
+          <option>Island Hopper — from $899</option>
+          <option>Wild Jungle Trek — from $249</option>
+          <option>Build my own custom trip</option>
+        </select>
+        <button class="btn" type="submit">Get My Tour Catalog</button>
+      </form>
+      <p class="form-note" id="formNote">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="kicker">Get in Touch</span>
+      <h2 class="display">TALK TO A<br>REAL HUMAN.</h2>
+      <p style="color:var(--muted);margin-top:18px;max-width:420px">Have a question about a tour, a group booking, or a surprise anniversary plan? We answer fast — promise.</p>
+    </div>
+    <div class="reveal">
+      <div class="contact-item"><span class="ico">📞</span><div><b>Call us</b><span>+1 (555) 012-8899 · Mon–Sat, 9am–8pm</span></div></div>
+      <div class="contact-item"><span class="ico">✉️</span><div><b>Email</b><a href="mailto:hello@tourandfun.com">hello@tourandfun.com</a></div></div>
+      <div class="contact-item"><span class="ico">📍</span><div><b>Visit the HQ</b><span>42 Adventure Lane, Suite 3, Wanderlust City</span></div></div>
+      <div class="contact-item"><span class="ico">💬</span><div><b>Social</b><a href="#">@tourandfun — everywhere you scroll</a></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#top">TOUR<span>&amp;</span>FUN</a>
+    <div class="foot-links">
+      <a href="#tours">Tours</a>
+      <a href="#why">Why Us</a>
+      <a href="#book">Book</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p>© 2026 Tour &amp; Fun Co. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll-reveal animations
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Fake booking submission
+  function bookTrip(e){
+    e.preventDefault();
+    const note = document.getElementById('formNote');
+    note.textContent = '🎉 Woohoo! Check your inbox — your tour catalog is on its way.';
+    note.style.color = '#ffb220';
+    document.getElementById('email').value = '';
+    return false;
+  }
+</script>
+</body>
+</html>
